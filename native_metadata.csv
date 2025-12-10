@@ -1,0 +1,13 @@
+id,chains,pdb_id
+Beta_endorphin-mu_opioid,PR,8F7Q
+DAMGO-mu_opioid,DR,6DDE
+DAMGO-mu_opioid,DR,6DDF
+DAMGO-mu_opioid,PR,8EFQ
+DAMGO-mu_opioid,SR,8K9K
+DAMGO-mu_opioid,SR,8K9L
+Dynorphin_long-kappa_opioid,FR,7Y1F
+Dynorphin_long-kappa_opioid,PR,8F7W
+Dynorphin_short-kappa_opioid,FR,7Y1F
+Dynorphin_short-kappa_opioid,PR,8F7W
+Endorphin_1-mu_opioid,PR,8F7R
+Nociceptin-NOP_receptor,PR,8F7X

@@ -1,0 +1,12 @@
+name: dockq
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - conda-forge::python=3.12.6
+  - conda-forge::pip
+  - pip:
+    - "DockQ"
+    - "numpy==1.26.4"
+    - "scipy==1.14.1"
+    - "pandas==2.3.3"

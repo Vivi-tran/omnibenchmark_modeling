@@ -1,0 +1,10 @@
+name: modeling
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - conda-forge::python=3.12.6
+  - conda-forge::pip
+  - pip:
+    - "numpy==1.26.4"
+    - "pandas==2.2.3"

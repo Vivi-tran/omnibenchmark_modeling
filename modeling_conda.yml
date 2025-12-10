@@ -1,0 +1,133 @@
+id: structural_modeling_benchmark
+description: Benchmark structural modeling platforms with DockQ as groundtruth.
+version: 0.0.1
+benchmarker: "Vi Tran, Gáspár Pándy-Szekeres"
+# storage: http://omnibenchmark.org:9000
+benchmark_yaml_spec: 0.01
+# storage_api: S3
+# storage_bucket_name: clusteringexampleconda
+software_backend: conda
+software_environments:
+  modeling:
+    description: "data extraction env"
+    conda: envs/modeling.yml
+    envmodule: modeling
+    # apptainer: oras://quay.io/imallona/clustering_example/clustbench:latest
+  dockq:
+    description: "DockQ calculation and evaluation"
+    conda: envs/dockq.yml
+    # apptainer: oras://quay.io/imallona/clustering_example/fcps:latest
+    envmodule: dockq
+  plot:
+    description: "Plotting environment"
+    conda: envs/plot.yml
+    envmodule: plot
+metric_collectors:
+  - id: plotting
+    name: "Results collect and plotting"
+    software_environment: "plot"
+    repository:
+      url: https://github.com/Vivi-tran/benchmark_plotting.git
+      commit: fea6148
+    inputs:
+      - metrics.mean_dockq
+      - metrics.dockq
+      - correlation.scores
+    outputs:
+      - id: plotting.html
+        path: "{input}/{name}/dockq_report.html"
+stages:
+  - id: data
+    modules:
+      - id: AFMultimer
+        name: "models generated from AFMultimer"
+        software_environment: "modeling"
+        repository:
+          url: https://github.com/Vivi-tran/benchmark_model_afm
+          commit: e18e8bd
+        parameters:
+          - values: ["--model","AFMultimer"]
+          # - values: ["--input_path","https://github.com/pszgaspar/short_peptide_modeling_benchmark.git","--model","AFMultimer"]
+          # - values: ["--input_path","./data","--model","AFMultimer"]
+      - id: Chai-1
+        name: "models generated from Chai-1"
+        software_environment: "modeling"
+        repository:
+          url: https://github.com/Vivi-tran/benchmark_model_afm
+          commit: e18e8bd
+        parameters:
+          - values: ["--model","Chai-1"]
+          # - values: ["--input_path","https://github.com/pszgaspar/short_peptide_modeling_benchmark.git","--model","Chai-1"]
+          # - values: ["--input_path","./data","--model","Chai-1"]
+      - id: HelixFold3
+        name: "models generated from HelixFold3"
+        software_environment: "modeling"
+        repository:
+          url: https://github.com/Vivi-tran/benchmark_model_afm
+          commit: e18e8bd
+        parameters:
+          - values: ["--model","HelixFold3"]
+          # - values: ["--input_path","https://github.com/pszgaspar/short_peptide_modeling_benchmark.git","--model","HelixFold3"]
+          # - values: ["--input_path","./data","--model","HelixFold3"]
+      # - id: AF3
+      #   name: "models generated from AF3"
+      #   software_environment: "modeling"
+      #   repository:
+      #     url: https://github.com/Vivi-tran/benchmark_model_afm
+      #     commit: e18e8bd
+      #   parameters:
+      #     - values: ["--model","AF3"]
+      #     # - values: ["--input_path","./data","--model","AF3"]
+      # - id: Boltz-2
+      #   name: "models generated from Boltz-2"
+      #   software_environment: "modeling"
+      #   repository:
+      #     url: https://github.com/Vivi-tran/benchmark_model_afm
+      #     commit: e18e8bd
+      #   parameters:
+      #     - values: ["--model","Boltz-2"]
+    outputs:
+      - id: data.natives
+        path: "{input}/{stage}/{module}/{params}/{dataset}.natives.tar"
+      - id: data.models
+        path: "{input}/{stage}/{module}/{params}/{dataset}.tar"
+
+  - id: metrics
+    modules:
+      - id: dockq
+        name: "Calculate dockq"
+        software_environment: "dockq"
+        repository:
+          url: https://github.com/Vivi-tran/modeling_metrics.git
+          commit: b140e3f
+        parameters:
+          - values: ["--step", "dockq"]
+    inputs:
+      - entries:
+          - data.natives
+          - data.models
+    outputs:
+      - id: metrics.dockq
+        path: "{input}/{stage}/{module}/{params}/{dataset}.dockq.csv"
+      - id: metrics.mean_dockq
+        path: "{input}/{stage}/{module}/{params}/{dataset}.meandockq.csv"
+
+  - id: corr
+    modules:
+      - id: correlation
+        name: "Calculate correlation between metrics and groundtruth DockQ"
+        software_environment: "dockq"
+        repository:
+          url: https://github.com/Vivi-tran/modeling_metrics.git
+          commit: b140e3f
+        parameters:
+          - values: ["--step","correlation", "--metrics", "pearson,spearman"]
+          # - values: ["--step","correlation", "--metrics", "pearson,spearman", "--features", "plddt", "--methods", "all,rank1,best_dockq"]
+          # - values: ["--step","correlation", "--metrics", "pearson,spearman", "--features", "ptm", "--methods", "all,rank1,best_dockq"]
+          # - values: ["--step","correlation", "--metrics", "pearson,spearman", "--features", "iptm", "--methods", "all,rank1,best_dockq"]
+    inputs:
+      - entries: 
+          - metrics.dockq
+    outputs:
+      - id: correlation.scores
+        path: "{input}/{stage}/{module}/{params}/{dataset}.correlation.csv"

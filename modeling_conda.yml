@@ -28,7 +28,7 @@ metric_collectors:
     software_environment: "plot"
     repository:
       url: https://github.com/Vivi-tran/benchmark_plotting.git
-      commit: ecc003d
+      commit: 9e6c0f7
     inputs:
       - metrics.mean_dockq
       - metrics.dockq

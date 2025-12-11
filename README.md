@@ -1,6 +1,7 @@
 # Structural Modeling Benchmark
 
-This repository provides a benchmark for structural modeling platforms using DockQ as ground truth. The workflow is managed via [OmniBenchmark](https://github.com/omnibenchmark/omnibenchmark).
+This repository provides a benchmark for structural modeling platforms using DockQ as ground truth. The workflow is managed via [OmniBenchmark](https://github.com/omnibenchmark/omnibenchmark).  
+The pipeline was run with Miniforge3.
 
 ## Quickstart
 
@@ -20,7 +21,14 @@ conda activate omnibenchmark
 conda env update -f omni-environment.yml
 ```
 
-### 3. Run the Benchmark
+### 3. Clone the Repository and Run the Benchmark
+
+#### Clone the repository
+
+```bash
+git clone https://github.com/omnibenchmark/omnibenchmark_modeling.git
+cd omnibenchmark_modeling
+```
 
 #### Dry Run (Preview Steps)
 
@@ -42,5 +50,5 @@ ob run benchmark -b modeling_conda.yml --cores 1 --local-storage
 ## Notes
 
 - Make sure you have [Conda](https://docs.conda.io/en/latest/) installed.
-- The benchmark runs locally and requires the specified conda environments.
-- For more details, see the [OmniBenchmark documentation](https://github.com/omnibenchmark/omnibenchmark).
+- The benchmark runs locally and requires the specified Conda environments.
+- For more details, see the [OmniBenchmark documentation](https://github.com/omnibenchmark/omnibenchmark)

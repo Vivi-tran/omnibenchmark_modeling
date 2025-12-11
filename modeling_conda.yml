@@ -28,7 +28,7 @@ metric_collectors:
     software_environment: "plot"
     repository:
       url: https://github.com/Vivi-tran/benchmark_plotting.git
-      commit: fea6148
+      commit: ecc003d
     inputs:
       - metrics.mean_dockq
       - metrics.dockq
@@ -46,27 +46,27 @@ stages:
           url: https://github.com/Vivi-tran/benchmark_model_afm
           commit: e18e8bd
         parameters:
-          - values: ["--model","AFMultimer"]
-          # - values: ["--input_path","https://github.com/pszgaspar/short_peptide_modeling_benchmark.git","--model","AFMultimer"]
+          # - values: ["--model","AFMultimer"]
+          - values: ["--input_path","https://github.com/pszgaspar/short_peptide_modeling_benchmark.git","--model","AFMultimer"]
           # - values: ["--input_path","./data","--model","AFMultimer"]
-      - id: Chai-1
-        name: "models generated from Chai-1"
-        software_environment: "modeling"
-        repository:
-          url: https://github.com/Vivi-tran/benchmark_model_afm
-          commit: e18e8bd
-        parameters:
-          - values: ["--model","Chai-1"]
-          # - values: ["--input_path","https://github.com/pszgaspar/short_peptide_modeling_benchmark.git","--model","Chai-1"]
-          # - values: ["--input_path","./data","--model","Chai-1"]
-      - id: HelixFold3
-        name: "models generated from HelixFold3"
-        software_environment: "modeling"
-        repository:
-          url: https://github.com/Vivi-tran/benchmark_model_afm
-          commit: e18e8bd
-        parameters:
-          - values: ["--model","HelixFold3"]
+      # - id: Chai-1
+      #   name: "models generated from Chai-1"
+      #   software_environment: "modeling"
+      #   repository:
+      #     url: https://github.com/Vivi-tran/benchmark_model_afm
+      #     commit: e18e8bd
+      #   parameters:
+      #     # - values: ["--model","Chai-1"]
+      #     - values: ["--input_path","https://github.com/pszgaspar/short_peptide_modeling_benchmark.git","--model","Chai-1"]
+      #     # - values: ["--input_path","./data","--model","Chai-1"]
+      # - id: HelixFold3
+      #   name: "models generated from HelixFold3"
+      #   software_environment: "modeling"
+      #   repository:
+      #     url: https://github.com/Vivi-tran/benchmark_model_afm
+      #     commit: e18e8bd
+      #   parameters:
+      #     - values: ["--model","HelixFold3"]
           # - values: ["--input_path","https://github.com/pszgaspar/short_peptide_modeling_benchmark.git","--model","HelixFold3"]
           # - values: ["--input_path","./data","--model","HelixFold3"]
       # - id: AF3

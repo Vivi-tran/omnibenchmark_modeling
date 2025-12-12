@@ -58,6 +58,6 @@ ob run benchmark -b modeling_conda.yml --cores 1 --local-storage
 
 ## Notes
 
-- Make sure you have [Conda](https://docs.conda.io/en/latest/) installed.
+- It is recommended to have [Miniforge](https://github.com/conda-forge/miniforge) installed for managing environments.
 - The benchmark runs locally and requires the specified Conda environments.
 - For more details, see the [OmniBenchmark documentation](https://github.com/omnibenchmark/omnibenchmark)

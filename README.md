@@ -47,6 +47,15 @@ ob run benchmark -b modeling_conda.yml --cores 1 --local-storage
 - `modeling_conda.yml`: Benchmark specification file.
 - `omni-environment.yml`: OmniBenchmark environment dependencies.
 
+## Input
+
+- `Generated Models:` Models can be provided in several ways:
+  - From a GitHub repository (e.g., [short_peptide_modeling_benchmark](https://github.com/pszgaspar/short_peptide_modeling_benchmark)), typically within a `models` folder.
+  - From a local directory, where each subdirectory corresponds to a different model name.
+  - Update the `--input_path` argument in the YAML configuration file to specify the correct source.
+- `native_metadata.csv`: A CSV file containing metadata for native structures, including model IDs, chain identifiers, and PDB IDs.
+- `data/`: Example local input folder structure containing
+
 ## Notes
 
 - Make sure you have [Conda](https://docs.conda.io/en/latest/) installed.
